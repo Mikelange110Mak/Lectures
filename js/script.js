@@ -1,5 +1,99 @@
 'use strict'
 
+
+////////////////65 Скрипты и время их выполнения//////////
+/*
+//первый вариант таймера перед выполнением
+const timerId = setTimeout(function () {
+   console.log('(First).......Hey There!');
+}, 2000);
+
+//второй вариант таймера перед выполнением
+const timerIdSecond = setTimeout(function (text) {
+   console.log(text);
+}, 3000, '(Second)....Yeeeeeaaap!^^');
+
+
+//третий вариант
+function logger() {
+   console.log('(Third)TexT');
+}
+const timerIdThird = setTimeout(logger, 3500);
+let timerIdFourth,
+   iterator = 0;
+
+//Сбросить таймер функции:
+clearInterval(timerIdSecond);
+///
+
+//таймер с кликом
+function secondLogger() {
+   if (iterator === 1) {
+      clearInterval(timerIdFourth);
+   }
+   console.log('(Fourth) button was clicked');
+   iterator++;
+}
+
+
+const btn = document.querySelector('.fblock__btn');
+btn.addEventListener('click', () => {
+   timerIdFourth = setInterval(secondLogger, 1200);
+})
+///
+//рекурсивный setTimeout
+//разница в том, что кода будет ждать строгий промежуток, тогда как на примерах выше, если код тяжелый и долго грузился, время таймера нарушалось
+
+let id = setTimeout(function log() {
+   console.log('recurse timer');
+   id = setTimeout(log, 500);
+}, 7500);
+
+/*
+///////68 Работа с датами//////////
+
+const now = new Date();
+const notNow = new Date();
+
+console.log(now.getFullYear());
+console.log(now.getMonth());
+console.log(now.getDate());
+console.log(now.getHours());
+console.log(now.getUTCHours());
+
+//console.log(now.getTimezoneOffset());
+console.log(now.setHours(18));
+console.log(now);
+*/
+
+////71 Окно, Документ///////
+
+/*
+const box = document.querySelector('.document__item'),
+   docBtn = document.querySelector('.document__button-item');
+
+
+// const width = box.clientWidth;
+//const height = box.clientHeight;
+//const width = box.offsetWidth;
+//const height = box.offsetHeight;
+const width = box.scrollWidth;
+const height = box.scrollHeight;
+
+console.log(width, height);
+
+docBtn.addEventListener("click", () => {
+   box.style.height = box.scrollHeight + 'px'
+   //console.log(box.scrollTop);
+});
+console.log(box.getBoundingClientRect());
+
+const style = window.getComputedStyle(box)
+//console.log(style);
+
+console.log(document.documentElement.scrollTop);
+*/
+
 ///////////74 Mutation observer, Resize observer, contenteditable//////////
 
    /*
@@ -186,3 +280,18 @@
    //div.showMyProps();
    //console.log(div.calcArea());
 */
+
+/*
+/////////80 Rest оператор////////
+
+const log = function (a, b, ...rest) {
+   console.log(a, b, rest);
+}
+log('basic - a', 'basic-b', 'rest1', 'rest2', 'rest3')
+
+function calcOrDouble(number, basis = 2) {
+   console.log(number * basis);
+}
+calcOrDouble(3)
+*/
+
