@@ -362,7 +362,7 @@ const test = time => {
 
 //метод Promise.all() - ждет выполнение всех промисов и выполняется
 //Promise.all([test(1000),test(2000),test(3000)]).then(()=>{
-//   console.log('All'); 
+//   console.log('All');
 //})
 
 //метод Promise.race() - выполняет первый отработанный промис
@@ -371,3 +371,140 @@ Promise.race([test(1000),test(2000),test(3000)]).then(()=>{
 })
 */
 
+///////////88 Методы перебора массива///////////
+/*
+//методы перебора массива в этом уроке, возвращают НОВЫЙ массив (foreach() не возвращает, а просто перебирает)
+
+//filter() - фильтровать элементы массива
+
+const names = ['ivan', 'Ann', 'Ksenia', 'Voldemart'];
+
+//отфильтровать имена до 5 символов:
+const shortNames = names.filter((name) => {
+   return name.length < 5;
+});
+
+//console.log(shortNames);
+
+//map() - изменить каждый элемент внутри массива
+
+const answers = ['IvAn', 'AnnA', 'Hello'];
+
+//привести каждый элемент в нижний регистр:
+const result = answers.map(item => {
+   return item.toLowerCase()
+});
+
+//console.log(result);
+
+//every()/some() - возвращает булиновое значение если все/хотя-бы один элемент соответствует требуемым параметрам
+
+const someArr = ['asd', 5, 7]
+
+//проверить, есть ли хоть одно число в массиве:
+//console.log(someArr.some(item => typeof (item) === 'number'));
+
+//проверить, все ли элементы массива - числа:
+//console.log(someArr.every(item => typeof (item) === 'number'));
+
+
+//reduce() - служит для схлопывания(собирания) массива в одно целое
+
+const arr = [4, 5, 1, 3, 2, 6];
+
+//первый аргумент - это счетчик(accumulator), который по умолчанию с нуля, второй перебираемый элемент(current)
+
+//задача получить сумму всех элементов массива:
+
+const res = arr.reduce((sum, curr) => {
+   return sum + curr
+})
+
+//добавил аргумент начального значения - 100, теперь счетчик(acculator) начинается не с нуля, а со 100:
+const res100 = arr.reduce((sum, curr) => {
+   return sum + curr
+}, 100)
+
+//console.log(res);
+//console.log(res100);
+
+
+const arrStr = ['apple', 'pear', 'plum', 'banana'];
+
+//задача получить строку элементов через запятую:
+const resStr = arrStr.reduce((sum, curr) => {
+   return `${sum}, ${curr}`
+})
+//console.log(resStr);
+
+
+const obj = {
+   ivan: 'persone',
+   ann: 'persone',
+   dog: 'animal',
+   cat: 'animal'
+}
+
+//задача: вытащить имена людей (persone) из объекта:
+const newArr = Object.entries(obj)  //объект преобразуется в массив, где каждое ключ-значение будет отдельным массивчиком
+   .filter(item => item[1] === 'persone')  //отфильтровать массивчики где каждый второй элемент будет 'persone
+   .map(item => item[0])  //вернуть только имена
+
+console.log(newArr);
+*/
+
+/* Упражнения на переборы массива
+const films = [
+   {
+      name: 'Titanic',
+      rating: 9
+   },
+   {
+      name: 'Die hard 5',
+      rating: 5
+   },
+   {
+      name: 'Matrix',
+      rating: 8
+   },
+   {
+      name: 'Some bad film',
+      rating: 4
+   }
+];
+
+
+function showGoodFilms(arr) {
+   const goodFilms = arr.filter(item => item.rating > 7)
+   //console.log(goodFilms);
+}
+showGoodFilms(films)
+
+
+function showListOfFilms(arr) {
+   const strFilms = arr.map((item) => item.name)
+      .reduce((acc, curr) => { return `${acc}, ${curr}` })
+   //console.log(strFilms);
+}
+showListOfFilms(films)
+
+
+function setFilmsIds(arr) {
+   const newArr = arr.map((items, index) => {
+      items.id = index
+      return items
+   })
+   return newArr
+   //console.log(newArr);
+}
+
+setFilmsIds(films)
+
+const tranformedArray = setFilmsIds(films);
+//console.log(tranformedArray);
+
+function checkFilms(arr) {
+   return arr.every(item => item.id !== 'undefined')
+}
+checkFilms(tranformedArray)
+*/
