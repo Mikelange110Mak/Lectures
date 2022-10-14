@@ -453,7 +453,8 @@ const newArr = Object.entries(obj)  //объект преобразуется в
 console.log(newArr);
 */
 
-/* Упражнения на переборы массива
+/* /////////Упражнения на переборы массива/////////
+
 const films = [
    {
       name: 'Titanic',
@@ -507,4 +508,42 @@ function checkFilms(arr) {
    return arr.every(item => item.id !== 'undefined')
 }
 checkFilms(tranformedArray)
+
+
+const funds = [
+   { amount: -1400 },
+   { amount: 2400 },
+   { amount: -1000 },
+   { amount: 500 },
+   { amount: 10400 },
+   { amount: -11400 }
+];
+
+function getPositiveIncomeAmount(data) {
+   const positiveNum = data.filter(n => n.amount > 0)
+      .reduce((acc, curr) => acc + curr.amount, 0)
+
+   //console.log(positiveNum);
+};
+
+
+
+
+const getTotalIncomeAmount = (data) => {
+   const checkData = data.some(n => n.amount < 0)
+   const newArr = data.reduce((acc, curr) => acc + curr.amount, 0)
+   if (checkData === true) {
+      return newArr
+   } else {
+      getPositiveIncomeAmount(funds)
+   }
+
+
+   console.log(getTotalIncomeAmount);
+}
+
+getTotalIncomeAmount(funds)
+
 */
+
+
