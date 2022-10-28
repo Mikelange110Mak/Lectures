@@ -296,6 +296,7 @@ calcOrDouble(3)
 */
 
 
+
 //////////////86 Promise/////////////////
 /*
 console.log('Запрос данных....');
@@ -369,6 +370,20 @@ const test = time => {
 Promise.race([test(1000),test(2000),test(3000)]).then(()=>{
    console.log('All');
 })
+*/
+
+/*
+   /////////87 Fetch API////////
+   //набор данных и возможностей который предоставляет готовое решение
+   fetch('https://jsonplaceholder.typicode.com/posts', {
+      method: "POST",
+      body: JSON.stringify({ name: 'Alex' }),
+      headers: {
+         'Content-type': 'application/json'
+      }
+   })
+      .then(response => response.json())
+      .then(json => console.log(json))
 */
 
 ///////////88 Методы перебора массива///////////
@@ -545,5 +560,73 @@ const getTotalIncomeAmount = (data) => {
 getTotalIncomeAmount(funds)
 
 */
+
+
+//Отработка пробелов
+
+const users = [
+   { id: 1, name: 'Axel', last: 'Johnson', born: 1990, died: 'none' },
+   { id: 2, name: 'John', last: 'Kennedy', born: 1917, died: 1963 },
+   { id: 3, name: 'Adolf', last: 'Huitler', born: 1889, died: 1945 },
+   { id: 4, name: 'Simon', last: 'Brown', born: 1999, died: 'none' },
+   { id: 5, name: 'Joshua', last: 'Siemens', born: 1989, died: 'none' },
+   { id: 6, name: 'Franklin', last: 'Pierce', born: 1804, died: 1869 }
+]
+
+const users2 = [
+   [{ id: 1, name: 'asdasd', last: 'Johnson', born: 1990, died: 'none' }],
+   [{ id: 2, name: 'John', last: 'Kennedy', born: 1917, died: 1963 }],
+   [{ id: 3, name: 'Adolf', last: 'Huitler', born: 1889, died: 1945 }],
+   [{ id: 4, name: 'asdasd', last: 'Brown', born: 1999, died: 'none' }],
+   [{ id: 5, name: 'Jfdsfsd', last: 'Siemens', born: 1989, died: 'none' }],
+   [{ id: 6, name: 'Franklin', last: 'Pierce', born: 1804, died: 1869 }]
+]
+
+
+const users3 = [
+   [{ id: 1, name: 'asdasd', last: 'Johnson', born: 1990, died: 'none' },
+   { id: '1.1', name: 'INNER', last: 'Dapkunaite', born: 1990, died: 'none' }
+   ],
+   [{ id: 2, name: 'John', last: 'Kennedy', born: 1917, died: 1963 }],
+   [{ id: 3, name: 'Adolf', last: 'Huitler', born: 1889, died: 1945 }],
+   [{ id: 4, name: 'asdasd', last: 'Brown', born: 1999, died: 'none' }],
+   [{ id: 5, name: 'Jfdsfsd', last: 'Siemens', born: 1989, died: 'none' }],
+   [{ id: 6, name: 'Franklin', last: 'Pierce', born: 1804, died: 1869 }]
+]
+
+
+//Показать строку живых юзеров:
+const alive = users.filter(i => {
+   if (i.died === 'none') {
+      //console.log(`${i.name} ${i.last}`);
+   }
+})
+
+
+//Вариант для второго массива где массив в котором массивы:
+const alive3 = users3.reduce((acc, el) => [...acc, ...el], [])
+console.log(alive3);
+
+//Показать строку мертвых юзеров и в каком году они умерли:
+const dead = users.filter(i => {
+   if (i.died !== 'none') {
+      //console.log(`${i.name} ${i.last} died in ${i.died}`);
+   }
+})
+//Показать строку мертвых юзеров и в каком году они умерли для второго массива:
+const dead2 = users2.filter(users2 => {
+   if (users2[0].died !== 'none') {
+      //console.log(`${users2[0].name} ${users2[0].last} died in ${users2[0].died}`);
+   }
+})
+
+
+//Создать массив, который содержит только имя и фамилию юзера
+const namesArr = users.map((users) => `${users.name} ${users.last}`)
+//console.log(namesArr);
+
+//Вариант для второго массива где массив в котором массивы:
+const namesArr2 = users2.map(users2 => `${users2[0].name} ${users2[0].last}`);
+//console.log(namesArr2);
 
 
