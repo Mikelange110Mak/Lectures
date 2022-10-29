@@ -602,10 +602,18 @@ const alive = users.filter(i => {
    }
 })
 
+//Показать строку живых юзеров для второго массива:
+const alive2 = users2.reduce((acc, el) => [...acc, ...el])
+   .filter(i => {
+      if (i.died === 'none') {
+         // console.log(`${i.name} ${i.last}`);
+      }
+   })
+//console.log(alive2);
 
-//Вариант для второго массива где массив в котором массивы:
+//Вариант для третьего массива где массив в котором массивы:
 const alive3 = users3.reduce((acc, el) => [...acc, ...el], [])
-console.log(alive3);
+//console.log(alive3);
 
 //Показать строку мертвых юзеров и в каком году они умерли:
 const dead = users.filter(i => {
@@ -630,3 +638,42 @@ const namesArr2 = users2.map(users2 => `${users2[0].name} ${users2[0].last}`);
 //console.log(namesArr2);
 
 
+//Посчитать время жизни всех людей в массиве:
+const liveCount = users.reduce((acc, curr) => {
+   if (curr.died === 'none') curr.died = 2022
+   return curr.died - curr.born + acc
+}, 0)
+//console.log(liveCount);
+
+
+//функция подсчета времени жизни для первого массива (первый аргумент id, второй аргумент массив)
+function personalLiveCount(p, arr) {
+   const liveCount = arr.filter(i => { if (p === i.id) return i })
+      .reduce((acc, curr) => {
+         if (curr.died === 'none') curr.died = 2022
+         return curr.died - curr.born + acc
+      }, 0)
+   console.log(liveCount);
+}
+//personalLiveCount(4, users)
+
+
+//Отфильтровать людей которые родились в 1800-ых у первого массива
+const in1800s = users.filter(i => {
+   if (i.born > 1799 && i.born < 1900) {
+      //console.log(`${i.name} ${i.last}`);
+   }
+})
+
+//Отсортировать людей в зависимости от количества прожитых лет (от большего к меньшему) (скопипизженно)
+const personSort = users.sort((a, b) => {
+   const aLived = a.died - a.born;
+   const bLived = b.died - b.born;
+
+   if (aLived > bLived) {
+      return -1
+   } else {
+      return 1
+   }
+})
+console.log(personSort);
