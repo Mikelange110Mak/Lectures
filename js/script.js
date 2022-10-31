@@ -524,3 +524,54 @@ localStorage.setItem(persone.name, savePersone)
 console.log(JSON.parse(localStorage.getItem(persone.name)));
 */
 
+
+//96 Регулярные выражения//////
+/*
+
+//      new RegExp('patter', 'flags'); - Старый синтаксис
+//      /pattern/f                     - Новый синтаксис
+
+
+//const ans = prompt('Введите ваше имя');
+const reg = /\d/ig;
+
+//флаги:
+//  i  - найти независимо от регистра
+//  g  - найти сразу несколько вхождений 
+//  m  - многострочный режим
+
+
+//console.log(ans.search(reg)); //поиск
+//console.log(ans.match(reg)); //совпадение
+
+//const pass = prompt('Password')
+
+//если поставить точку, то берутся все элементы которые попадут в строку
+//метод replace естественно заменить
+
+//console.log(pass.replace(/./g, "*"))
+
+//если нужна точка которая может попасть в строку, ее можно экранировать поставив слэш
+//console.log(pass.replace(/\./g, "*"));
+
+
+//убрать дефисы из строки
+//console.log('12-34-56'.replace(/-/g, ""));
+
+
+//метод test возвращает булин если есть значение или нету
+//console.log(reg.test(ans));
+
+//классы в регулярных выражениях:
+// \d - цифры (digits)         :не числа  \D
+// \w - слова(буквы) (words)   :не слова  \W
+// \s - пробелы (spaces)       
+
+//const ans = prompt('Введите ваше число')
+//console.log(ans.match(reg));
+
+const str = 'My name is R2D2'
+console.log(str.match(/\w\d\w\d/i));
+
+*/
+
