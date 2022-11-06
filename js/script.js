@@ -537,7 +537,7 @@ const reg = /\d/ig;
 
 //флаги:
 //  i  - найти независимо от регистра
-//  g  - найти сразу несколько вхождений 
+//  g  - найти сразу несколько вхождений
 //  m  - многострочный режим
 
 
@@ -565,7 +565,7 @@ const reg = /\d/ig;
 //классы в регулярных выражениях:
 // \d - цифры (digits)         :не числа  \D
 // \w - слова(буквы) (words)   :не слова  \W
-// \s - пробелы (spaces)       
+// \s - пробелы (spaces)
 
 //const ans = prompt('Введите ваше число')
 //console.log(ans.match(reg));
@@ -575,8 +575,9 @@ console.log(str.match(/\w\d\w\d/i));
 
 */
 
-//99 Свойства объектов Геттеры и Сеттеры
 
+//99 Свойства объектов Геттеры и Сеттеры///
+/*
 const persone = {
    name: 'Alex',
    age: 28,
@@ -595,4 +596,40 @@ const persone = {
 //метод вызывается без скобок
 persone.userName = 'Makeashvilli';
 console.log(persone.userName);
+*/
 
+
+//100 Инкапсуляция///
+
+/*
+class user {
+
+   constructor(name, age) {
+      this.name = name;
+      this._age = age;
+   }
+
+
+
+   say() {
+      console.log(`Имя юзера: ${this.name}, Возраст: ${this._age}`);
+   }
+
+
+   get age() {
+      return this._age;
+   }
+
+   set age(age) {
+      if (typeof age === 'number' && age > 0 && age < 110) this._age = age;
+      else console.log('Недопустимое значение');
+   }
+
+}
+
+const vanya = new user('Ivan', 33)
+console.log(vanya.age);
+vanya.age = 99;
+console.log(vanya.age);
+vanya.say()
+*/
