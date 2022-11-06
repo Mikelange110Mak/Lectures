@@ -575,3 +575,24 @@ console.log(str.match(/\w\d\w\d/i));
 
 */
 
+//99 Свойства объектов Геттеры и Сеттеры
+
+const persone = {
+   name: 'Alex',
+   age: 28,
+
+   //геттер (get) получить данные:
+   get userName() {
+      return this.name;
+   },
+
+   //сеттер (set) установить значение:
+   set userName(num) {
+      this.name = num;
+   }
+
+}
+//метод вызывается без скобок
+persone.userName = 'Makeashvilli';
+console.log(persone.userName);
+
