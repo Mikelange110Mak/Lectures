@@ -92,7 +92,7 @@ getTotalIncomeAmount(funds)
 */
 
 
-
+/*
 const users = [
    { id: 1, name: 'Axel', last: 'Johnson', born: 1990, died: 'none' },
    { id: 2, name: 'John', last: 'Kennedy', born: 1917, died: 1963 },
@@ -206,3 +206,58 @@ const personSort = users.sort((a, b) => {
    }
 })
 console.log(personSort);
+*/
+
+//Debugger отладчик кода
+/*
+const input = document.querySelector('.form-control'),
+   btn = document.querySelector('.btn'),
+   result = document.querySelector('.result');
+
+
+btn.addEventListener('click', (e) => {
+   e.preventDefault();
+   let a = input.value;
+
+   a = Math.pow(a, 2);
+
+   if (a) result.textContent = `${a}`;
+   else result.textContent = `Введите число`;
+
+})
+
+
+let count = 0;
+
+for (let i = 0; i < 9; i++) {
+   count++
+}
+//console.log(count);
+
+
+debugger
+let arr = [1, 2, 3, 4, 5, 6, 7]
+
+for (let [i] of arr.entries()) {
+   arr[i] = arr[i] * 2;
+   console.log(arr[i]);
+}
+
+console.log(arr);
+*/
+
+//Цикл в цикле
+/*
+point: for (let i = 0; i < 4; i++) {
+   console.log(`Первый этаж ${i}`);
+   for (let j = 0; j < 4; j++) {
+      console.log(`Второй этаж ${j}`);
+      for (let k = 0; k < 4; k++) {
+         if (k == 2) continue point;
+         console.log(`Третий этаж ${k}`);
+
+      }
+   }
+}
+*/
+
