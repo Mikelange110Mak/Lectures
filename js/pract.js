@@ -261,3 +261,84 @@ point: for (let i = 0; i < 4; i++) {
 }
 */
 
+////////////Общение с сервером, запросы, тут указал 3 способа
+
+/*
+function req() {
+
+
+   const request = new XMLHttpRequest();
+
+   //////////////////// 1. XML HTTP REQUEST - Старый метод
+
+   //Получение GET запроса, по адресу: (json-server)
+   request.open("GET", "http://localhost:3000/timeForCode")
+
+   //Заголовки (понимать серверу с какими данными он сейчас работает)
+   request.setRequestHeader("Content-type", "application/json; charset=utf-8");
+
+   //Запрос создан и сервер знает с какими данными он будет работать, теперь отправляем запрос
+   request.send(); //Так как GET запрос, оставляем пустые скобки, если бы был POST, надо в скобки дописать какое-то body
+
+   //Теперь можно взаимодействовать с сервером
+   //Навешиваю обработчик readystatechange, который позволяет отслеживать стадии запроса, стадии запроса по ссылке
+   //https://developer.mozilla.org/ru/docs/Web/API/XMLHttpRequest/readyState
+   //upd все же поставил обработчик load, он попроще
+   request.addEventListener('load', () => {
+      //Если стадия запроса равна 4 и статус запроса 200
+      if (request.status === 200) {
+         //request.response - полученный ответ от сервера
+         let data = JSON.parse(request.response)
+         console.log(data);
+
+         //Здесь пишу то что мне надо
+
+      } else console.error('Что-то пошло не так :(')
+
+   })
+
+   //////////////////// 2. Fetch Api - Новый метод
+
+   //Ввожу url
+   fetch("http://localhost:3000/timeForCode")
+      //Получаем данные, и у фетча есть метод парса json
+      .then(data => data.json())
+      //После этого по цепочке, его надо обработать, я вызываю функцию
+      .then(data => timeByMonth(data, 11)) //Здесь пример функии
+      //обработать ошибки:
+      .catch(err => console.error(err))
+
+
+   //////////////////// 3. Fetch Api - Дорабатываю, пишу вспомогательную функцию
+
+   //Более лаконичный, такой варик, но надо обязательно дописать вспомогательную функцию
+   getResource("http://localhost:3000/timeForCode")
+      .then(data => timeByMonth(data, 8))
+      .catch(err => console.error(err))
+
+
+
+   //Пишу ниже где-нибудь такую функцию:
+   //Она асинхронна, поэтому используется метод async await
+   async function getResource(url) {
+      const res = await fetch(`${url}`);
+
+      //внутри фетча, появляется свойство ок, которое понятно из названия говорит о том что запрос выполнен
+      if (!res.ok) throw new Error(`Couldn't fetch ${url}, status ${res.status}`);
+
+      return await res.json();
+   }
+
+
+
+
+
+}
+*/
+
+
+
+
+
+
+
