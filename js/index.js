@@ -71,3 +71,75 @@ const { eki, yush } = options.step1.step2.step3
 const { quatro } = options.step1.step2.step3.step4
 console.log(quatro);
 */
+
+//Передача по ссылке или по значению/Spread оператор
+
+
+//В этом примере все ок:
+let a = 5,
+   b = a;
+
+b = b + 5
+//console.log(b);
+//console.log(a);
+
+//Чуть усложним:
+const obj = {
+   a: 5,
+   b: 1
+}
+
+//Таким образом копия не создается, а значение передается по ссылке
+const copy = obj;
+copy.a = 10
+
+//console.log(copy);
+//console.log(obj);
+
+const numbers = {
+   a: 1,
+   b: 2,
+   c: 3
+}
+
+const numbers2 = {
+   d: 4,
+   e: 5,
+   f: 6
+}
+
+//Object.assign - слияние объектов
+//console.log(Object.assign(numbers, numbers2));
+
+const clone = Object.assign({}, numbers)
+const clone2 = { ...numbers }
+clone.b = 20;
+
+//console.log(numbers);
+//console.log(clone);
+
+//Клонирование массива:
+const oldArr = ['a', 'b', 'c']
+//const newArr = oldArr                  // Это не пойдет, потому что изменяю newArr изменится и oldArr
+const newArr = oldArr.slice()    //Копия
+const newArr2 = [...oldArr]      //Копия
+newArr[1] = 'B2'
+
+//console.log(newArr);
+//console.log(oldArr);
+
+const video = ['youtube', 'vimeo', 'tik-tok']
+messengers = ['telegram', 'whatsapp', 'signal']
+const apps = [...video, ...messengers];
+
+//Оказца Spread оператор еще можно использовать так:
+
+function show(a, b, c) {
+   console.log(a);
+   console.log(b);
+   console.log(c);
+}
+
+let nums = [1, 2, 3]
+
+show(...nums)
