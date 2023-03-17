@@ -73,7 +73,7 @@ console.log(quatro);
 */
 
 //Передача по ссылке или по значению/Spread оператор
-
+/*
 
 //В этом примере все ок:
 let a = 5,
@@ -143,3 +143,70 @@ function show(a, b, c) {
 let nums = [1, 2, 3]
 
 show(...nums)
+*/
+
+/*
+const personalPlanPeter = {
+   name: "Peter",
+   age: "30",
+   skills: {
+      languages: ['kz', 'eng', 'ua'],
+      programmingLangs: {
+         js: '20%',
+         php: '10%'
+      },
+      exp: '1 month'
+   },
+   showAgeAndLangs: (plan) => {
+      let langs = plan.skills.languages
+      let langStr = `Мне ${plan.age} и я владею языками: `
+      for (let i of langs) {
+         langStr += `${i.toUpperCase()} `
+      }
+      console.log(langStr)
+   }
+};
+
+personalPlanPeter.showAgeAndLangs(personalPlanPeter)
+
+function showExperience(plan) {
+   const { exp } = plan.skills
+   console.log(exp);
+}
+showExperience(personalPlanPeter)
+
+
+function showProgrammingLangs(plan) {
+   const { programmingLangs } = plan.skills
+   const arr = Object.keys(programmingLangs)
+   let result = ''
+
+   if (arr.length > 0) {
+      for (let i in programmingLangs) {
+         result += `Язык ${i} изучен на ${programmingLangs[i]}\n`
+      }
+   } else result = ''
+   console.log(result);
+}
+
+showProgrammingLangs(personalPlanPeter)
+*/
+
+function hello() {
+   console.log('Hello World');
+}
+hello()
+
+function sayHi() {
+   let name = 'Mak'
+   console.log(`Hi ${name}!`);
+}
+sayHi()
+
+const arr = [1, 14, 11, 30, 55, 7, 10, 6]
+const sorted = arr.sort(compareNum)
+
+function compareNum(a, b) {
+   return a - b
+}
+console.log(sorted);
