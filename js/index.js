@@ -192,6 +192,7 @@ function showProgrammingLangs(plan) {
 showProgrammingLangs(personalPlanPeter)
 */
 
+/* Debugger
 function hello() {
    console.log('Hello World');
 }
@@ -210,3 +211,49 @@ function compareNum(a, b) {
    return a - b
 }
 console.log(sorted);
+*/
+
+////MUTATION OBSERVER & RESIZE:
+/*
+const box = document.querySelector('.box')
+
+//создаем обсервер
+let observer = new MutationObserver(MutationRecords => {
+   console.log(MutationRecords);
+})
+
+//теперь если что-то изменяется, то надо доложить об этом:
+observer.observe(box, {
+   childList: true
+}, console.log(box.clientHeight))
+*/
+
+///ФУНКЦИИ КОНСТРУКТОРЫ:
+/*
+function User(name, id) {
+   this.name = name;
+   this.id = id;
+   this.human = true
+
+   //также можно прописать какие-то методы:
+   this.hello = function () {
+      console.log(`Hello ${this.name}`);
+   }
+}
+
+const vano = new User('Ivan', 28)
+const alex = new User('Alexander', 58)
+
+console.log(vano);
+console.log(alex);
+
+//вызов метода:
+alex.hello()
+
+//Также вот, я создал метод вне функции конструктора, с помощью prototype
+User.prototype.exit = function () {
+   console.log(`Пользователь ${this.name} дал по съебам`);
+}
+vano.exit()
+//Важное замечание! Сейчас функции конструкторы уже не пишут, а пользуются классами (так называемый синтаксический сахар, но под капотом у классов именно Ф.К)
+*/
