@@ -257,3 +257,128 @@ User.prototype.exit = function () {
 vano.exit()
 //Важное замечание! Сейчас функции конструкторы уже не пишут, а пользуются классами (так называемый синтаксический сахар, но под капотом у классов именно Ф.К)
 */
+
+//Контекст вызова THIS:
+/*
+//Обычная функция. This = window. Но если стоит 'use strict', то undefined
+function showThis() {
+   console.log(this);
+}
+//showThis()
+
+function showThis2(a, b) {
+   function sum() {
+      console.log(this);
+      //return this.a + this.b //такой код не сработает пушто даже функция внутри функции даст undefined, надо использовать замыкание 
+      return a + b
+   }
+   console.log(sum());
+}
+//showThis2(2, 3)
+
+
+//Если использовать МЕТОД внутри ОБЪЕКТА, то КОНТЕКСТЫ ВЫЗОВА будет ссылаться на ОБЪЕКТ
+const obj = {
+   a: 20,
+   b: 15,
+   sum: function () {
+      console.log(this);
+   }
+}
+
+//obj.sum()
+
+
+//В этом же случае, когда вызываю контекст вызова функции внутри метода НЕ СРАБОТАЕТ, пушто вызываю контекст вызова в простой функции!
+const obj2 = {
+   a: 20,
+   b: 15,
+   sum: function () {
+      function shout() {
+         console.log(this);
+      }
+      shout()
+   }
+}
+
+//obj2.sum()
+
+//Внутри функции конструктора и классах THIS ссылается на новый экземпляр объекта!
+
+function User(name, id) {
+   this.name = name;
+   this.id = id;
+   this.human = true;
+
+   //Даже если методы в нем будут, все равно будут ссылаться на только что созданный объект
+   this.hello = function () {
+      console.log(`Hello ${this.name}`);
+   }
+
+
+}
+let make = new User('Makenchlen', 28)
+
+//Ручная привязка контекста вызова:
+
+const obj3 = {
+   name: 'John',
+   surname: 'Travoltah',
+   sex: 'male',
+}
+
+//Как отобразить в консоле контекст вызова объекта созданного выше?
+function sayName(age) {
+   console.log(this);
+   console.log(this.name);
+   console.log(this.sex + age);
+}
+//Для этого есть 2 метода! CALL и APPLY
+//sayName.call(obj3)
+//sayName.apply(obj3)
+//Теперь ФУНКЦИЯ приобрела контекст вызова ОБЪЕКТА!
+
+//В чем разница между этими двумя методами? Если использую аргумент в функции, то меняется синтаксис
+//sayName.call(obj3, '18')  //здесь, в методе CALL, аргумент через запятую
+//sayName.apply(obj3, ['19']) //здесь, в методе APPLY, аргументы в массиве
+
+//Но есть еще 3 метод присвоение контекста функции - BIND
+
+function count(num) {
+   console.log(this * num);
+}
+
+//BIND - создает новую функцию
+const double = count.bind(2)
+//Таким образом я забиндил новый контекст ПОД НОВОСОЗДАННУЮ ФУНКЦИЮ double
+//double(3)
+
+
+//Как выглядит на странице все это дело
+//обычная кнопка:
+const btn = document.querySelector('button')
+
+//КОНТЕКСТОМ ВЫЗОВА на событиях при ОБЫЧНОЙ ФУНКЦИИ будет САМ ЭЛЕМЕНТ (по сути event.target)
+btn.addEventListener('click', function () {
+   //console.log(this);
+   this.style.background = 'red'
+})
+
+//У СТРЕЛОЧНОЙ ФУНКЦИИ нет своего КОНТЕКСТА ВЫЗОВА, ОН БЕРЕТСЯ У РОДИТЕЛЯ!
+
+//Разбираем этот пример:
+const obj4 = {
+   num: 5,
+   sayNumber: function () {
+      const say = () => {
+         console.log(this);
+      }
+      say()
+   }
+}
+//Стрелочная функция say не имеет своего родителя, идем к родителю
+//Родитель - Метод объекта, контекст вызова метода объекта - САМ ОБЪЕКТ
+//Соответственно результатом будет сам объект! 
+
+obj4.sayNumber()
+*/
