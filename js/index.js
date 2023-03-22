@@ -382,3 +382,55 @@ const obj4 = {
 
 obj4.sayNumber()
 */
+
+//КЛАССЫ
+//Классы - это по сути синтаксический сахар для функци конструктора(Функции-Конструкторы разбирал выше на (231 строке)
+//Таким образом, можно легко делать "прототипы" для объектов.
+
+//Должен начинаться с большой буквы
+class Rectangle {
+   constructor(height, width) {
+      this.height = height; //Свойство объекта
+      this.width = width;  //Свойство объекта
+   }
+   calcArea() {   //Метод объекта
+      return this.width * this.width
+   }
+}
+//Класс готов, попробую его использовать:
+const square = new Rectangle(10, 10)
+//console.log(square);
+console.log(square.calcArea());
+
+const box = document.querySelector('.box')
+//box.style.width = square.calcArea() + 'px'
+
+
+//Также свойства классов, можно наследовать, класс созданный ниже coloredRectangle будет наследовать свойства класса выше Rectangle
+class ColoredRectangle extends Rectangle {
+   constructor(height, width, color, bgColor) {
+      super(height, width); //Вызывает те же свойства что у родителя (класса Rectangle), super() всегда идет первой строчкой
+      this.color = color;
+      this.bgColor = bgColor
+   }
+
+   showMyProps() {
+      console.log(`Цвет текста: ${this.color}, Бэкграунд: ${this.bgColor}`);
+   }
+}
+
+class RectangleText extends ColoredRectangle {
+   constructor(height, width, color, bgColor, text) {
+      super(height, width, color, bgColor);
+      this.text = text
+   }
+}
+
+const firstVersion = new RectangleText(100, 100, 'red', '#cfffa9', 'imaText')
+//Как вижу, методы тоже наследуются:
+firstVersion.showMyProps()
+
+box.style.backgroundColor = firstVersion.bgColor
+box.innerHTML = firstVersion.text
+box.style.height = firstVersion.height + 'px'
+box.style.width = firstVersion.width + 'px'
