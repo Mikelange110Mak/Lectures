@@ -24,3 +24,11 @@ button {
    height: 200px;
    border: 1px solid #333;
 }
+
+.ajax {
+   margin-top: 40px;
+   padding: 10px;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+}

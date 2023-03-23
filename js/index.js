@@ -384,6 +384,7 @@ obj4.sayNumber()
 */
 
 //КЛАССЫ
+/*
 //Классы - это по сути синтаксический сахар для функци конструктора(Функции-Конструкторы разбирал выше на (231 строке)
 //Таким образом, можно легко делать "прототипы" для объектов.
 
@@ -434,3 +435,51 @@ box.style.backgroundColor = firstVersion.bgColor
 box.innerHTML = firstVersion.text
 box.style.height = firstVersion.height + 'px'
 box.style.width = firstVersion.width + 'px'
+*/
+
+//AJAX. Разбираю XMLHttpRequest на двух инпутах:
+const inputKzt = document.getElementById('kzt'),
+   inputUsd = document.getElementById('usd');
+
+//Назначаю обработчик события input
+inputKzt.addEventListener('input', () => {
+   //теперь надо сделать запрос на сервер
+   const request = new XMLHttpRequest();
+   //Как вижу это тот же самый объект, со своими методами
+
+   //Вызываю метод open, который собирает настройки для запроса, принимает аргументы(метод запроса, урл, 
+   //async - отвечает за асинхронный код стоит по умолчанию, login, password (некоторые действия выполняются только при авторизации))
+   request.open('GET', 'js/test.json')
+
+   //теперь надо донастроить запрос на сервак, дело в том что когда отправляю запрос, надо четко указать
+   //какая это информация, в чем она закодирована и т.п, для этого используются заголовки
+
+   //пока использую заголовок для передачи json файлов:
+   request.setRequestHeader('Content-type', 'application/json; charset=utf-8')
+
+   //все приготовления закончены, теперь отпраляю сам запрос:
+   request.send()
+
+   //теперь работаю с ответом
+
+
+
+
+
+   //событие load срабатывает когда запрос готов:
+   request.addEventListener('load', () => {
+      if (request.status === 200) {  //Если мой статус запроса 200 (Ок!)
+         // console.log(request.response);
+
+         //Отлично, в консольке вижу свой джсон файл, теперь эти данные надо преобразовать в обычный объект:
+         const data = JSON.parse(request.response)
+         //Ну все! Данные для работы с гет-запросом готовы!
+
+         //Теперь напишую простецкую логику для курса валют:
+         inputUsd.value = (+inputKzt.value / data.current.usd).toFixed(2)
+
+      } else { //А если что-о пошло не так, надо уведомить пользователя
+         inputUsd.value = 'Что-то пошло не так :('
+      }
+   })
+})
