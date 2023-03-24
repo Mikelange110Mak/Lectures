@@ -14,6 +14,8 @@ first('JS', cb)
 */
 ////////////////////////
 
+//const { response } = require("express");
+
 //Деструктуризация:
 /*
 const options = {
@@ -483,3 +485,70 @@ inputKzt.addEventListener('input', () => {
       }
    })
 })
+
+
+//Самостоятельная практика XMLHttpRequest:
+const testBtn = document.getElementById('test__button'),
+   testInput = document.getElementById('test__input');
+
+
+testBtn.addEventListener('click', () => {
+
+   const request = new XMLHttpRequest();
+   request.open('GET', 'http://localhost:3001/test');
+   request.setRequestHeader('Content-type', 'text/html; charset=utf-8');
+   request.send();
+
+   request.addEventListener('load', () => {
+      if (request.status === 200) testInput.value = request.response;
+      else testInput.value = 'Придется сходить нахуй';
+   })
+})
+//Успешно!
+
+//POST запросы в XMLHTTPRequest:
+
+const message = {
+   loading: 'Загрузка',
+   success: 'Успешно!',
+   failure: 'Придется сходить нахуй :('
+}
+
+const form = document.querySelector('form')
+
+function postData(form) {
+   form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+
+
+      //Этот блок чисто чтоб элемент создать, к тебе не особо относится
+      const statusMessage = document.createElement('div')
+      statusMessage.textContent = message.loading;
+      form.append(statusMessage)
+      /////////////////////////////////////
+
+
+
+      const request = new XMLHttpRequest();
+      request.open('POST', 'http://localhost:3001/datapost');
+
+      //Также как и GET запросах, сейчас тоже надо настроить заголовки:
+      //request.setRequestHeader('Content-type', 'multipart/form-data')
+
+      //Объект FormData позволяет удобнее работать с формами Html
+      //нужен для того чтобы не перебирать все инпуты, и облегчить работу с данными формы
+      const formData = new FormData(form);
+
+      //Так как это POST запрос и мы отправляем какое-то тело, надо передать аргумент того что я отправляю
+      request.send(formData);
+
+      request.addEventListener('load', () => {
+         if (request.status === 200) {
+            console.log(request.response);
+            statusMessage.textContent = message.success;
+         } else statusMessage.textContent = message.failure;
+      })
+   })
+}
+postData(form)

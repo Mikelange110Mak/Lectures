@@ -32,3 +32,7 @@ button {
    flex-direction: column;
    justify-content: center;
 }
+
+.ajax-post__btn {
+   border: 1px solid #333;
+}
