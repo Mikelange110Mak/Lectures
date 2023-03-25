@@ -11,11 +11,11 @@ app.get('/test', (req, res, next) => {
 })
 
 app.post('/datapost', (req, res, next) => {
-   let name = req.body.name
-   let phone = req.body.phone
+   let name = req.body.formName
+   let phone = req.body.formPhone
    let obj = { name, phone }
-   console.log(req.body);
-   res.send(req.body)
+   console.log(obj);
+   res.send(obj)
 })
 
 const port = 3001;

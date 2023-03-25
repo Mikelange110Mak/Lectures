@@ -32,10 +32,10 @@
       <input id="test__input" type="text">
    </div>
    <div class="ajax-post">
-      <form action="#" class="ajax-post__form">
-         <input required placeholder="Ваше имя" name="name" type="text" class="ajax-post__input">
-         <input required placeholder="Ваш номер телефона" name="phone" type="phone" class="ajax-post__input">
-         <button class="ajax-post__btn">GO!</button>
+      <form action="/datapost" class="ajax-post__form" method="post">
+         <input required placeholder="Ваше имя" name="name" type="text" class="ajax-post__input-name">
+         <input required placeholder="Ваш номер телефона" name="phone" type="phone" class="ajax-post__input-phone">
+         <button type="submit" class="ajax-post__btn">GO!</button>
       </form>
    </div>
 </body>

@@ -514,15 +514,15 @@ const message = {
    failure: 'Придется сходить нахуй :('
 }
 
-const form = document.querySelector('form')
-
+const form = document.querySelector('.ajax-post__form')
+let formName, formPhone
 function postData(form) {
    form.addEventListener('submit', (e) => {
       e.preventDefault();
 
 
 
-      //Этот блок чисто чтоб элемент создать, к тебе не особо относится
+      //Этот блок чисто чтоб элемент создать, к теме не особо относится
       const statusMessage = document.createElement('div')
       statusMessage.textContent = message.loading;
       form.append(statusMessage)
@@ -531,17 +531,22 @@ function postData(form) {
 
 
       const request = new XMLHttpRequest();
-      request.open('POST', 'http://localhost:3001/datapost');
-
+      request.open('POST', 'datapost');
       //Также как и GET запросах, сейчас тоже надо настроить заголовки:
-      //request.setRequestHeader('Content-type', 'multipart/form-data')
+
+      //P.S У меня несколько иной заголовок, т.к я не использую объект formData
+      request.setRequestHeader('Content-type', 'application/json; charset=utf-8')
 
       //Объект FormData позволяет удобнее работать с формами Html
       //нужен для того чтобы не перебирать все инпуты, и облегчить работу с данными формы
-      const formData = new FormData(form);
+      //P.S formdata не работает с моим серваком на nodeJS
+
+      formName = document.querySelector('.ajax-post__input-name').value
+      formPhone = document.querySelector('.ajax-post__input-phone').value
 
       //Так как это POST запрос и мы отправляем какое-то тело, надо передать аргумент того что я отправляю
-      request.send(formData);
+      const json = JSON.stringify({ formName, formPhone })
+      request.send(json);
 
       request.addEventListener('load', () => {
          if (request.status === 200) {
