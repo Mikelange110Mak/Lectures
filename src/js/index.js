@@ -521,36 +521,47 @@ function postData(form) {
       e.preventDefault();
 
 
-
-      //Этот блок чисто чтоб элемент создать, к теме не особо относится
+      //////////////Блок кода чтоб создать элемент на странице{
       const statusMessage = document.createElement('div')
       statusMessage.textContent = message.loading;
       form.append(statusMessage)
-      /////////////////////////////////////
+      /////////////////////////////////////}
 
 
+      const xhr = new XMLHttpRequest();
 
-      const request = new XMLHttpRequest();
-      request.open('POST', 'datapost');
+      //Ну как обычно, два аргумента по дефолту метод запроса и урл:
+      xhr.open('POST', 'datapost');
+
       //Также как и GET запросах, сейчас тоже надо настроить заголовки:
-
-      //P.S У меня несколько иной заголовок, т.к я не использую объект formData
-      request.setRequestHeader('Content-type', 'application/json; charset=utf-8')
+      //Но есть нюансы, если у меня формдата, то заголовок настраивать не обязательно или въебать multipart/form-data
+      //Я использую Json и поэтому заголовок для джейсона юзаю
+      xhr.setRequestHeader('Content-type', 'application/json')
 
       //Объект FormData позволяет удобнее работать с формами Html
       //нужен для того чтобы не перебирать все инпуты, и облегчить работу с данными формы
-      //P.S formdata не работает с моим серваком на nodeJS
+      const formData = new FormData(form);
 
-      formName = document.querySelector('.ajax-post__input-name').value
-      formPhone = document.querySelector('.ajax-post__input-phone').value
 
-      //Так как это POST запрос и мы отправляем какое-то тело, надо передать аргумент того что я отправляю
-      const json = JSON.stringify({ formName, formPhone })
-      request.send(json);
+      //////////////////////Блок кода чтобы данные с FormData в Джейсон ебануть{
+      const object = {}
 
-      request.addEventListener('load', () => {
-         if (request.status === 200) {
-            console.log(request.response);
+      //Перебор формдаты и помещение ее в объект
+      formData.forEach((value, key) => {
+         object[key] = value
+      })
+
+      //Парсю из ОБЪЕКТА в JSON
+      const json = JSON.stringify(object)
+      ///////////////////////}
+
+      //Все, отправляю запрос:
+      xhr.send(json)
+
+      xhr.addEventListener('load', () => {
+         //второе условие это особенность моего сервака, мол если он отправляет hi, то все ок делай что надо!
+         if (xhr.status === 200 && xhr.response === 'hi') {
+            console.log(object);
             statusMessage.textContent = message.success;
          } else statusMessage.textContent = message.failure;
       })

@@ -1,6 +1,9 @@
 const express = require('express')
 const app = express();
 const bodyParser = require('body-parser')
+const fs = require('fs')
+
+const miniDataBase = fs.readFileSync(`${__dirname}/src/js/test.json`)
 
 app.use(express.urlencoded({ extended: false }))
 app.use(express.static('src'))
@@ -10,12 +13,10 @@ app.get('/test', (req, res, next) => {
    res.send('Data')
 })
 
+
 app.post('/datapost', (req, res, next) => {
-   let name = req.body.formName
-   let phone = req.body.formPhone
-   let obj = { name, phone }
-   console.log(obj);
-   res.send(obj)
+
+   res.send('hi')
 })
 
 const port = 3001;
