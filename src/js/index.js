@@ -568,3 +568,116 @@ function postData(form) {
    })
 }
 postData(form)
+
+//PROMISES (ПРОМИСЫ)
+/*
+
+//Объект Promise помогает с асинхронными вычислениями, асинхронными запросами на сервер
+
+//Напишу пример с асинхронным кодом:
+console.log('Запрос данных...');
+
+//setTimeout(() => {
+//console.log('Подготовка данных...');
+
+//const product = {
+//   name: 'TV',
+//   price: 145000
+//};
+
+//setTimeout(() => {
+
+// product.status = 'order';
+// console.log(product);
+
+//}, 2000);
+
+
+//}, 2000);
+//Пример выше конечно не callback-hell, но пойдет, теперь давай напишу его на промисах
+
+
+
+//создаю объект промиса и во внутрь помещаю функцию с двумя аргументами, обычно это resolve и reject
+//по простому resolve - когда операция завершилась успешно, reject не успешно
+const req = new Promise(function (resolve, reject) {
+
+   setTimeout(() => {
+      console.log('Подготовка данных...');
+
+      const product = {
+         name: 'TV',
+         price: 145000
+      };
+
+      //resolve - все успешно
+      //И ВАЖНЫЙ МОМЕНТ, теперь данные надо заретёрнить, чтобы в следующих цепочках с ними работать
+      //просто нужные данные помещаю в аргумент resolve
+      resolve(product)
+   }, 2000);
+
+});
+//Метод then выполянется, в случае положительного исхода, это функция resolve() которую я написал выше.
+req.then((product) => {
+   //console.log(`Данные о ${product.name} получены...`);
+})
+
+req.then((product) => {
+   setTimeout(() => {
+
+      product.status = 'order';
+      //console.log(product);
+
+   }, 2000);
+
+})
+
+//А если после тех манипуляций, мне надо сделать еще какие-то действия?
+//цепочка then
+req.then((product) => {
+
+   return new Promise((res, rej) => {
+      product.description = 'new promise';
+      res(product);
+   })
+
+}).then(data => {
+   //также могу замодифицировать данные:
+   data.modify = true
+   return data
+}).then(data => {
+   console.log(data);
+}).catch(() => {
+   //Catch - для отлавливания ошибок, обычно прописывается в конце
+   //Если что-то пошло не так, или я прописал прямую ошибку, то все then пропускаются и запускается блок кода catch
+   console.error('Произошла ошибка')
+}).finally(() => {
+   //метод finally - запускается в конце независимо были ошибки или нет
+   console.log('Цепочка завершена');
+})
+*/
+/*
+//Также есть еще 2 метода, про которые  мало кто знает
+const test = time => {
+   return new Promise(resolve => {
+
+      setTimeout(() => {
+         resolve()
+      }, time);
+
+   })
+}
+//test(1000).then(() => console.log('1000ms'))
+//test(2000).then(() => console.log('2000ms'))
+
+//Promise.all принимает в себя массив с промисами, который я могу потом массово обработать
+//Он ждет пока все промисы которые указал в массиве выполнятся, а потом выполняет операцию
+//Promise.all([test(1000), test(2000)])
+//   .then(() => console.log('All'))
+
+
+//Второй метод Promise.race - какой из промисов выполнится первым, в таком случае и выполняем нужную операцию
+//Если Promise.all ждал пока все промисы выполнится, то Promise.race начинает работать когда правильно сработал первый промис
+Promise.race([test(1000), test(2000)])
+   .then(() => console.log('Первый нах'))
+*/
