@@ -1,5 +1,16 @@
 {
-   "current": {
-      "usd": 465
-   }
+   "data": [
+      {
+         "name": "Anna",
+         "age": 28
+      },
+      {
+         "name": "Jason",
+         "age": 29
+      },
+      {
+         "name": "Son Hueng Min",
+         "age": 30
+      }
+   ]
 }

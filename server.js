@@ -3,20 +3,27 @@ const app = express();
 const bodyParser = require('body-parser')
 const fs = require('fs')
 
-const miniDataBase = fs.readFileSync(`${__dirname}/src/js/test.json`)
+const JSONdb = require('simple-json-db');
+const db = new JSONdb(`${__dirname}/src/js/test.json`);
+const miniDataBase = db.JSON();
+console.log(miniDataBase['data']);
 
 app.use(express.urlencoded({ extended: false }))
 app.use(express.static('src'))
 app.use(bodyParser.json());
 
-app.get('/test', (req, res, next) => {
-   res.send('Data')
-})
-
 
 app.post('/datapost', (req, res, next) => {
+   let name = req.body.object.name
+   let phone = req.body.object.phone
+   let obj = { name, phone }
+   console.log(obj);
+   miniDataBase['data'].push(obj)
+   res.send(miniDataBase)
+})
 
-   res.send('hi')
+app.get('/test', (req, res, next) => {
+   res.send(miniDataBase)
 })
 
 const port = 3001;

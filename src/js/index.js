@@ -14,6 +14,7 @@ first('JS', cb)
 */
 ////////////////////////
 
+
 //const { response } = require("express");
 
 //Деструктуризация:
@@ -513,7 +514,7 @@ const message = {
    success: 'Успешно!',
    failure: 'Придется сходить нахуй :('
 }
-
+/*
 const form = document.querySelector('.ajax-post__form')
 let formName, formPhone
 function postData(form) {
@@ -568,7 +569,7 @@ function postData(form) {
    })
 }
 postData(form)
-
+*/
 //PROMISES (ПРОМИСЫ)
 /*
 
@@ -681,3 +682,82 @@ const test = time => {
 Promise.race([test(1000), test(2000)])
    .then(() => console.log('Первый нах'))
 */
+
+//FETCH API
+
+//fetch('/test')
+/////////////////////////////У фетча есть свои методы, и метод .json() аналогичен JSON.parse()
+//   .then(response => response.json())
+//   .then(json => console.log(json))
+
+const object = {
+   name: 'Alex',
+   age: '28'
+}
+
+//А как настроить собсна запрос?, коллбэком после урла, есть методы еще но 2 основных это method и body
+//Ну и заголовки надо прописать
+
+fetch('https://jsonplaceholder.typicode.com/posts', {
+   method: 'POST',
+   body: JSON.stringify(object),
+   headers: {
+      'Content-type': 'application/json'
+   }
+
+})
+   .then(response => response.json())
+//.then(json => console.log(json))
+
+//А теперь, перепишу ка я свой пост запрос с xhr на fetch нахуй и чтоб формдата была!
+
+//ну получаю формочку
+const form = document.querySelector('.ajax-post__form')
+
+
+function postData(form) {
+   form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+
+      //////////////Блок кода чтоб создать элемент на странице{
+      const statusMessage = document.createElement('div')
+      statusMessage.textContent = message.loading;
+      form.append(statusMessage)
+      /////////////////////////////////////}
+
+      const formData = new FormData(form);
+
+      //Объект чтобы формдату в нем перебрать
+      const object = {}
+
+      //Перебор формдаты и помещение ее в объект
+      formData.forEach((value, key) => {
+         object[key] = value
+      })
+      console.log(object);
+
+
+      fetch('/datapost', {
+         method: 'POST',
+         headers: {
+            'Content-type': 'application/json'
+         },
+         body: JSON.stringify({
+            object
+         })
+      })
+         .then(res => res.json())
+         .then(data => {
+            document.querySelector('.ajax__text').innerHTML = JSON.stringify(data)
+         })
+         .catch(err => console.error(err))
+
+
+
+
+
+
+   })
+}
+postData(form)
