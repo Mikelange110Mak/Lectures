@@ -735,7 +735,6 @@ function postData(form) {
       formData.forEach((value, key) => {
          object[key] = value
       })
-      console.log(object);
 
 
       fetch('/datapost', {
@@ -747,13 +746,13 @@ function postData(form) {
             object
          })
       })
-         .then(res => res.json())
+         .then(data => data.json())
          .then(data => {
             document.querySelector('.ajax__text').innerHTML = JSON.stringify(data)
+            console.log(data);
          })
          .catch(err => console.error(err))
-
-
+         .finally(form.reset())
 
 
 
