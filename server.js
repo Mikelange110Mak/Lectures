@@ -28,3 +28,9 @@ const port = 3001;
 app.listen(port, () => {
    console.log(`App running on port ${port}...`);
 })
+
+
+/////////Еще раз к Promise так как не все понял!
+//Приведу пример асинхронности
+let a = 7;
+console.log(a);

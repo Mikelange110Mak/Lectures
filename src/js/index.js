@@ -753,10 +753,109 @@ function postData(form) {
          })
          .catch(err => console.error(err))
          .finally(form.reset())
-
-
-
-
    })
 }
 postData(form)
+
+
+/////////Еще раз к Promise так как не все понял!
+//Приведу пример асинхронности
+let a = 7;
+
+//setTimeout(() => {
+//   a = 99
+//   console.log(a);
+//}, 2000)
+
+//Тут у меня фейк асинхронность, значение переменной a изменилось с 7 на 99, но консоль лог ниже покажет 7
+//Так бывает когда код асинхронный, или когда ждешь ответ от сервера
+//Но что, мне писать все в сетТаймауты, и делать ад коллбэков? Нет, я могу линейно роасписать асинхронный код в промисах
+//console.log(a);
+
+let b = new Promise(function (resolve, reject) {
+   //Аргументы resolve и reject по сути являются функциями
+
+   setTimeout(() => {
+      resolve(a = 99) //Теперь что конкретно мне нужно дождаться? новое значение переменной a - закинь ее в функцию resolve
+   }, 2000)
+   //Resolve - это функция когда код выше завершится удачно!
+
+})
+b.then(function () {
+   //console.log(a);
+})
+
+
+
+console.log('Request data...');
+
+
+let simulation = new Promise((resolve, reject) => {
+
+   setTimeout(() => {
+      console.log('Preparing data...');
+
+      const backendData = {
+         server: 'aws',
+         port: 3001,
+         status: 'working'
+      }
+
+      resolve(backendData)
+   }, 2000)
+
+})
+simulation.then(data => console.log(`Current Data:`, data))
+
+/*
+//ТЕПЕРЬ ТО ЧТО МНЕ БЫЛО НЕПОНЯТНО!!
+//Зачем мне второй промис? А то что ответ ко второму промису и первому может быть разный
+//Я могу уже с другими данными работать во втором промисе!
+
+
+//Внутри метода then
+simulation.then(data => {
+
+   //я создаю новый промис
+   const p2 = new Promise((resolve, reject) => {
+      setTimeout(() => {
+         //изменяю тут какие-то данные
+         data.modyfied = true
+         //ну и возвращаю их
+         resolve(data)
+      }, 2000)
+   })
+   //Теперь могу работать как с измененнымы данными (объекта backendData), так и с первоначальной версией моего объекта!
+   p2.then(updateData => {
+      console.log('Data has been updated', updateData)
+   })
+
+})
+*/
+
+
+//Но все равно ебучие коллбэки! Как их сократить?
+//Просто не помещай в перерменную свой второй промис, а сразу возвращай его!
+//Я пишу тот же код что и выше, просто чутка его переделаю!
+
+simulation.then(data => {
+
+   return new Promise((resolve, reject) => {
+      setTimeout(() => {
+         data.update = true
+         resolve(data)
+      }, 2000)
+   })
+      .then(updateData => {
+         console.log('Data has been updated', updateData)
+         //Также прям тут могу еще поработать с этими данными:
+         updateData.newPropertyFrom = 'Promise'
+         //И просто возвращаю
+         return updateData
+      })
+      .then(data =>
+         //Ну и выведу очередное обновление объекта:
+         console.log('New Data Updating!', data)
+      )
+
+})
