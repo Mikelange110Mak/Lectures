@@ -759,19 +759,7 @@ postData(form)
 
 
 /////////Еще раз к Promise так как не все понял!
-//Приведу пример асинхронности
-let a = 7;
-
-//setTimeout(() => {
-//   a = 99
-//   console.log(a);
-//}, 2000)
-
-//Тут у меня фейк асинхронность, значение переменной a изменилось с 7 на 99, но консоль лог ниже покажет 7
-//Так бывает когда код асинхронный, или когда ждешь ответ от сервера
-//Но что, мне писать все в сетТаймауты, и делать ад коллбэков? Нет, я могу линейно роасписать асинхронный код в промисах
-//console.log(a);
-
+/*
 let b = new Promise(function (resolve, reject) {
    //Аргументы resolve и reject по сути являются функциями
 
@@ -806,6 +794,7 @@ let simulation = new Promise((resolve, reject) => {
 
 })
 simulation.then(data => console.log(`Current Data:`, data))
+*/
 
 /*
 //ТЕПЕРЬ ТО ЧТО МНЕ БЫЛО НЕПОНЯТНО!!
@@ -835,9 +824,9 @@ simulation.then(data => {
 
 
 //Но все равно ебучие коллбэки! Как их сократить?
-//Просто не помещай в перерменную свой второй промис, а сразу возвращай его!
+//Просто не помещай в переменную свой второй промис, а сразу возвращай его!
 //Я пишу тот же код что и выше, просто чутка его переделаю!
-
+/*
 simulation.then(data => {
 
    return new Promise((resolve, reject) => {
@@ -846,16 +835,65 @@ simulation.then(data => {
          resolve(data)
       }, 2000)
    })
-      .then(updateData => {
-         console.log('Data has been updated', updateData)
-         //Также прям тут могу еще поработать с этими данными:
-         updateData.newPropertyFrom = 'Promise'
-         //И просто возвращаю
-         return updateData
-      })
-      .then(data =>
-         //Ну и выведу очередное обновление объекта:
-         console.log('New Data Updating!', data)
-      )
+})
+   .then(updateData => {
+      console.log('Data has been updated', updateData)
+      //Также прям тут могу еще поработать с этими данными:
+      updateData.newPropertyFrom = 'Promise'
+      //И просто возвращаю
+      return updateData
+   })
+   .then(data =>
+      //Ну и выведу очередное обновление объекта:
+      console.log('New Data Updating!', data)
+   )
+   //Метод catch который отлавливает ошибки, по сути это то, что передаю в функцию reject()
+   .catch(err => console.error(`Error: `, err))
+
+   //Метод finally который срабатывает в конце промисов, независимо были ли ошибки или нет:
+   .finally(() => console.log('Finally'))
+   */
+
+//Круто, наконе пришло понимание. Теперь напишу собственный промис
+
+console.log('Запрос данных...');
+
+const myPromise = new Promise((resolve, reject) => {
+
+   setTimeout(() => {
+      const backendData = {
+         server: 'aws',
+         port: 3001,
+         status: 'working'
+      }
+      resolve(backendData)
+   }, 2000);
 
 })
+myPromise.then(data => console.log('Данные получены', data))
+
+myPromise.then(data => {
+
+   return new Promise((resolve, reject) => {
+      setTimeout(() => {
+         data.update = 1
+
+         resolve(data)
+      }, 2000);
+   })
+
+}
+).then(updateData => {
+   console.log('В объект был добавлен новый ключ', updateData)
+
+   updateData.update = 2
+
+   return updateData
+}).then(modifiedData => {
+   console.log('Обновленный ключ был изменен', modifiedData)
+   return modifiedData
+})
+   .then(data => {
+      data.update = 3
+      return data
+   }).then(data => console.log(data))
