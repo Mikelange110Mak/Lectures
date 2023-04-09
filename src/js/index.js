@@ -855,7 +855,7 @@ simulation.then(data => {
    */
 
 //Круто, наконе пришло понимание. Теперь напишу собственный промис
-
+/*
 console.log('Запрос данных...');
 
 const myPromise = new Promise((resolve, reject) => {
@@ -897,3 +897,63 @@ myPromise.then(data => {
       data.update = 3
       return data
    }).then(data => console.log(data))
+   */
+
+
+//МЕТОДЫ ПЕРЕБОРА МАССИВОВ
+
+//Метод filter()
+
+const names = ['Cucurella', 'Kante', 'Chilwell', 'Mount', 'Arrizabalaga']
+
+const shortNames = names.filter(function (name) {
+   return name.length < 9
+})
+
+//console.log(shortNames);
+
+//Метод map()
+
+const answers = ['CuCureLLA', 'kante', 'CHILwell', 'Mount', 'ARRIZABALAGA']
+
+const result = answers.map(function (item) {
+   return item.toLowerCase()
+})
+
+//console.log(result);
+
+//Методы every/some
+//Возвращает булиновое значение, every - каждый элемент массива, some - хотяб один элемент массива
+
+const someArr = ['4', 'str', 'asd']
+//console.log(someArr.some((i) => typeof (i) === 'number'));
+//console.log(someArr.every((i) => typeof (i) === 'string'));
+
+//МЕТОД reduce()
+
+const nums = [4, 5, 1, 3, 5, 6, 7, 11]
+
+const res = nums.reduce((sum, current) => {
+   return sum + current
+}, 3)
+//console.log(res);
+
+const eat = ['apple', 'fish', 'meat', 'watermelon']
+
+const resEat = eat.reduce((sum, current) => {
+   return `${sum}, ${current}`
+},)
+//console.log(resEat);
+
+
+const obj = {
+   ivan: 'persone',
+   ann: 'persone',
+   dog: 'animal',
+   cat: 'animal'
+}
+
+const newArr = Object.entries(obj)
+   .filter((item) => item[1] === 'persone')
+   .map((item) => item[0])
+console.log(newArr);
